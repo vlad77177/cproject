@@ -63,4 +63,5 @@ int main(char *ch){
 	}
 	int end;
 	scanf("%d",&end);
+	return 0;
 }
