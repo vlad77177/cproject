@@ -1,19 +1,17 @@
 #include <stdio.h>
+#include <string.h>
 
 int main(){
 
 	const int strleight=120;
 
-	char str[strleight]="";
+	char str[strleight];
 
-	printf("Please enter a string not longer than 80 symbols\n");
+	printf("Please enter a string not longer than 120 symbols\n");
 
-	scanf("%s",&str);
+	gets(str);
 
-	int leight=0;
-	while(str[leight++]);
-
-	leight--;
+	int leight=strlen(str);
 
 	int space=0;
 
@@ -27,7 +25,7 @@ int main(){
 	for(int i=0;i<space;i++)
 		printf(" ");
 
-	printf("%s\n",str);
+	printf(str);
 
 	int end;
 	scanf("%d",&end);
