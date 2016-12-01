@@ -70,4 +70,6 @@ int main(){
 	int end;
 	scanf("%d",&end);
 
+	return 0;
+
 }
