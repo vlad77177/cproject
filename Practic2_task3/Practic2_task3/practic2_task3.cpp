@@ -12,7 +12,7 @@ int main(){
 	int indent=strings-increment;
 	int stars=1;
 
-	for(int str=1;str<=strings;str++,indent--,stars=stars+increment){
+	for(int str=1;str<=strings;str++,indent--,stars+=increment){
 		for(int i=0;i<=indent;i++)
 			printf(" ");
 		for(int s=0;s<stars;s++)
