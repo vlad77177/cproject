@@ -14,8 +14,8 @@ int main(){
 
 	scanf("%s",string);
 
-	TABLECELL firstcell;
-	TABLECELL* start=&firstcell;
+	TABLECELL firstcell[120];
+	TABLECELL* start=firstcell;
 	int tablesize=0;
 
 	int size=strlen(string);
