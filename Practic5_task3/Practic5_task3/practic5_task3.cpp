@@ -70,27 +70,27 @@ void RandomMixed(char w[20]){
 	if(leight<4)
 		return;
 	char *nomixed=(char*)calloc(leight-2,sizeof(char));
-	//массив символов внутри слова, не перемешанный
+	//the array of characters within a word, not stirred
 	char *mixed=(char*)calloc(leight-2,sizeof(char));
-	//массив для перемешанных символов
+	//the array of mixed characters
 	for(int i=1;i<leight-1;i++){
 		nomixed[i-1]=w[i];
 	}
 	for(int i=0;i<leight-2;i++){
 		int buffsize=leight-2-i;
-		//массив ссылок на еще не используемые символы
+		//an array of pointers to not yet used symbols
 		char **unusedsymbols=(char**)malloc(buffsize*sizeof(char*));
 		for(int j=0,n=0;j<leight-2;j++,n++){
-			//записываю в массив только неиспользуемые символы
+			//write to the array only unused symbols
 			if(nomixed[j]!=' ')
 				unusedsymbols[n]=&nomixed[j];			
 			else
 				n--;
 		}
 		int r=rand()%buffsize;
-		//значение mixed[i] - случайный символ, который еще не выбирался
+		//value mixed[i] - a random symbol that has not yet been chosen
 		mixed[i]=*unusedsymbols[r];
-		//по ссылке помечаю символ как уже используемый - пробелом
+		//the link mark a symbol as already used - with a space
 		*unusedsymbols[r]=' ';
 		free(unusedsymbols);
 	}
