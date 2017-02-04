@@ -93,33 +93,6 @@ void NewPattern(KAL &k){
 	Reflection(k.leftUp,k.leftDown,'h');
 }
 
-void init(KAL &k){
-	for(int x=0;x<=QUATER;x++){
-		for(int y=0;y<=QUATER;y++){
-			k.leftUp[x][y]=new bool;
-			k.leftUp[x][y]=false;
-		}
-	}
-	for(int x=0;x<=QUATER;x++){
-		for(int y=0;y<=QUATER;y++){
-			k.leftDown[x][y]=new bool;
-			k.leftDown[x][y]=false;
-		}
-	}
-	for(int x=0;x<=QUATER;x++){
-		for(int y=0;y<=QUATER;y++){
-			k.rightUp[x][y]=new bool;
-			k.rightUp[x][y]=false;
-		}
-	}
-	for(int x=0;x<=QUATER;x++){
-		for(int y=0;y<=QUATER;y++){
-			k.rightDown[x][y]=new bool;
-			k.rightDown[x][y]=false;
-		}
-	}
-}
-
 void Erase(KAL &k){
 	for(int x=0;x<=QUATER;x++){
 		for(int y=0;y<=QUATER;y++){
@@ -137,7 +110,6 @@ int main(){
 	srand(rand_value);
 
 	struct KAL kaleidoscope;
-	init(kaleidoscope);
 
 	for(int i=0;i<1000;i++){
 		system("cls");
