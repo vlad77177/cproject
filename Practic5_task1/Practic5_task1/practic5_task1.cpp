@@ -18,6 +18,8 @@ void getWords(STRING &s){
 				i=j;
 				break;
 			}
+			if(s.str[j]=='\0')
+				return;
 		}
 	}
 }
@@ -38,37 +40,34 @@ void printWord(STRING &s,int n){
 
 void MixingPrint(STRING &s){
 
-	int *nomixednumbers=(int*)malloc(s.wordcount);
-	int *mixednumbers=(int*)malloc(s.wordcount);
+	int *nomixednumbers=(int*)malloc(s.wordcount*sizeof(int));
+	int *mixednumbers=(int*)malloc(s.wordcount*sizeof(int));
 
 	for(int i=0;i<s.wordcount;i++){
 		nomixednumbers[i]=i;
 	}
 
-	int startval=time(NULL);
-	srand(startval);
-
-	int *unmixed=(int*)calloc(s.wordcount,sizeof(int));
-
-	for(int i=s.wordcount,n=0;i>0;i--,n++){
-		
-		for(int j=0,n=0;j<s.wordcount;j++){
+	for(int i=0;i<s.wordcount;i++){
+		int **unmixed=(int**)malloc((s.wordcount-i)*sizeof(int*));
+		for(int j=0,n=0;j<s.wordcount;j++,n++){
 			if(nomixednumbers[j]!=-1){
-				unmixed[n]=nomixednumbers[j];
-				n++;
+				unmixed[n]=&nomixednumbers[j];
 			}
+			else
+				n--;
 		}
-		int r=rand()%i;
-		//printf("%d",r);
-		mixednumbers[n]=unmixed[r];
-		nomixednumbers[r]=-1;
+		int r=rand()%(s.wordcount-i);
+		mixednumbers[i]=*unmixed[r];
+		*unmixed[r]=-1;
+		free(unmixed);
 	}
-
-	free(unmixed);
 	
 	for(int i=0;i<s.wordcount;i++){
 		printWord(s,mixednumbers[i]);
 	}
+
+	free(nomixednumbers);
+	free(mixednumbers);
 }
 
 int main(){
@@ -77,6 +76,9 @@ int main(){
 	string.wordcount=0;
 	printf("Enter string:\n");
 	gets(string.str);
+
+	int startval=time(NULL);
+	srand(startval);
 
 	getWords(string);
 	MixingPrint(string);

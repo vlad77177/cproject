@@ -10,9 +10,9 @@ int main(){
 	printf("Enter string: \n");
 	gets(string);
 
-	int i=0;
+	//int i=0;
 
-	for(i;i<strlen(string)-1;i++){
+	for(int i=0;i<strlen(string)-1;i++){
 		pointers[psize]=&string[i];
 		psize++;
 		for(int j=i;;j++){
