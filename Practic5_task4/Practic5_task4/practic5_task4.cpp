@@ -19,8 +19,9 @@ void getWords(STRING &s){
 				i=j;
 				break;
 			}
-			if(s.str[j]=='\0')
+			if(s.str[j]=='\0' || s.str[j]=='\n'){
 				return;
+			}
 		}
 	}
 }
@@ -28,7 +29,7 @@ void getWords(STRING &s){
 void printWord(STRING &s,int n){
 	char *now=s.pointers[n];
 	while(true){
-		if(*now!=' ' && *now!='\0'){
+		if(*now!=' ' && *now!='\0' && *now!='\n'){
 			printf("%c",*now);
 			now++;
 		}
