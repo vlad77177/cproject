@@ -1,39 +1,53 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-#define SIZE 27
-#define START 20
+#define SIZE 27 //27
+#define MIN 6
+#define MAX 21
 
-void Erase(bool pole[SIZE][SIZE]){
+struct FRACTAL{
+    bool pole[SIZE][SIZE];
+};
+
+void wait(int ms){
+	int c=clock()+ms;
+	while(clock()<c);
+}
+
+void Erase(FRACTAL *f){
     for(int x=0;x<SIZE;x++){
         for(int y=0;y<SIZE;y++){
-            pole[x][y]=false;
+            f->pole[x][y]=false;
         }
     }
 }
 
-void DrawSnowflake(int x,int y,int start_distance,bool pole[SIZE][SIZE]){
-    pole[x][y]=true;
-    pole[x+1][y]=true;
-    pole[x-1][y]=true;
-    pole[x][y+1]=true;
-    pole[x][y-1]=true;
+void DrawSnowflake(int x,int y,int start_distance,FRACTAL *f,int deep){
+    f->pole[x][y]=true;
+    if(start_distance>1){
+        f->pole[x+1][y]=true;
+        f->pole[x-1][y]=true;
+        f->pole[x][y+1]=true;
+        f->pole[x][y-1]=true;
+    }
     if(start_distance>0){
         int newsize=start_distance/2-1;
-        DrawSnowflake(x+newsize,y,newsize,pole);
-        DrawSnowflake(x-newsize,y,newsize,pole);
-        DrawSnowflake(x,y+newsize,newsize,pole);
-        DrawSnowflake(x,y-newsize,newsize,pole);
-        DrawSnowflake(x,y,newsize,pole);
+        DrawSnowflake(x+newsize,y,newsize,f,deep+1);
+        DrawSnowflake(x-newsize,y,newsize,f,deep+1);
+        DrawSnowflake(x,y+newsize,newsize,f,deep+1);
+        DrawSnowflake(x,y-newsize,newsize,f,deep+1);
+        DrawSnowflake(x,y,newsize,f,deep);
     }
     else{
         return;
     }
 }
 
-void Print(bool pole[SIZE][SIZE]){
+void Print(FRACTAL *f){
     for(int x=0;x<SIZE;x++){
         for(int y=0;y<SIZE;y++){
-            if(pole[x][y]==true)
+            if(f->pole[x][y]==true)
                 printf("%c ",'*');
             else
                 printf("%c ",' ');
@@ -44,10 +58,19 @@ void Print(bool pole[SIZE][SIZE]){
 
 int main(){
 
-    bool pole[SIZE][SIZE];
-    Erase(pole);
-    DrawSnowflake(SIZE/2,SIZE/2,START,pole);
-    Print(pole);
+    int sval=(int)time(NULL);
+    srand(sval);
+
+    FRACTAL f;
+
+    for(int i=0;i<100;i++){
+        int start=MIN+rand()%(MAX-MIN);
+        Erase(&f);
+        DrawSnowflake(SIZE/2,SIZE/2,start,&f,1);
+        Print(&f);
+        wait(5000);
+        system("cls");
+    }
 
     int end;
     scanf("%d",&end);
